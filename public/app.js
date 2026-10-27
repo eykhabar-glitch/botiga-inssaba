@@ -81,4 +81,9 @@ document.querySelector('#filtre-categoria').addEventListener('change', (e) => {
   carregarProductes(e.target.value);
 });
 
+const anyActual = document.querySelector('#any-actual');
+if (anyActual) {
+  anyActual.textContent = new Date().getFullYear();
+}
+
 carregarProductes();
