@@ -18,7 +18,8 @@ test('GET / mostra un footer amb enllaç de contacte', async () => {
   assert.equal(resposta.status, 200);
   const html = await resposta.text();
   assert.match(html, /<footer[^>]*class="peu-pagina"[\s\S]*<\/footer>/);
-  assert.match(html, /mailto:contacte@botiga\.example\.com/);
+  assert.match(html, /mailto:contacte@botiga\.com/);
+  assert.match(html, />Contacta'ns<\/a>/);
   assert.match(html, /id="any-actual"/);
 });
 
@@ -34,4 +35,5 @@ test('styles.css defineix estils del footer', async () => {
   assert.equal(resposta.status, 200);
   const css = await resposta.text();
   assert.match(css, /\.peu-pagina\s*\{/);
+  assert.match(css, /\.peu-pagina p\s*\{[\s\S]*text-align:\s*center;/);
 });
