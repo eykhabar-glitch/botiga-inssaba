@@ -30,6 +30,15 @@ test('app.js calcula l’any actual amb JavaScript', async () => {
   assert.match(script, /new Date\(\)\.getFullYear\(\)/);
 });
 
+test('app.js mostra la puntuació o l’absència de ressenyes', async () => {
+  const resposta = await fetch(`${base}/app.js`);
+  const script = await resposta.text();
+  assert.match(script, /p\.mitjana/);
+  assert.match(script, /p\.numRessenyes/);
+  assert.match(script, /Sense ressenyes/);
+  assert.match(script, /★ \$\{p\.mitjana\.toFixed\(1\)/);
+});
+
 test('styles.css defineix estils del footer', async () => {
   const resposta = await fetch(`${base}/styles.css`);
   assert.equal(resposta.status, 200);

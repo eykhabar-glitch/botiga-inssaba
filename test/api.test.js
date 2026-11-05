@@ -18,12 +18,21 @@ test('GET /api/productes retorna tots els productes', async () => {
   assert.equal(resposta.status, 200);
   const productes = await resposta.json();
   assert.equal(productes.length, 6);
+
+  const ambRessenyes = productes.find((p) => p.id === 1);
+  assert.equal(ambRessenyes.mitjana, 4);
+  assert.equal(ambRessenyes.numRessenyes, 2);
+
+  const senseRessenyes = productes.find((p) => p.id === 2);
+  assert.equal(senseRessenyes.mitjana, null);
+  assert.equal(senseRessenyes.numRessenyes, 0);
 });
 
 test('GET /api/productes?categoria=roba filtra per categoria', async () => {
   const resposta = await fetch(`${base}/api/productes?categoria=roba`);
   const productes = await resposta.json();
   assert.ok(productes.every((p) => p.categoria === 'roba'));
+  assert.ok(productes.every((p) => 'mitjana' in p && 'numRessenyes' in p));
 });
 
 test('GET /api/productes/:id retorna 404 si no existeix', async () => {
