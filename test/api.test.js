@@ -63,3 +63,21 @@ test('GET /api/categories retorna una llista JSON', async () => {
     && Number.isInteger(categoria.numProductes)
   )));
 });
+
+test('POST /api/carret/total retorna el resum amb l’enviament', async () => {
+  const resposta = await fetch(`${base}/api/carret/total`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      items: [{ preu: 10, quantitat: 3 }],
+      descompte: 10,
+    }),
+  });
+
+  assert.equal(resposta.status, 200);
+  assert.deepEqual(await resposta.json(), {
+    subtotal: 27,
+    enviament: 5.9,
+    total: 32.9,
+  });
+});

@@ -39,6 +39,19 @@ test('app.js mostra la puntuació o l’absència de ressenyes', async () => {
   assert.match(script, /★ \$\{p\.mitjana\.toFixed\(1\)/);
 });
 
+test('el carret mostra subtotal, enviament i total', async () => {
+  const resposta = await fetch(`${base}/`);
+  const html = await resposta.text();
+  assert.match(html, /id="subtotal"/);
+  assert.match(html, /id="enviament"/);
+  assert.match(html, /id="total"/);
+
+  const script = await (await fetch(`${base}/app.js`)).text();
+  assert.match(script, /const \{ subtotal, enviament, total \} = await resposta\.json\(\)/);
+  assert.match(script, /querySelector\('#subtotal'\)/);
+  assert.match(script, /querySelector\('#enviament'\)/);
+});
+
 test('styles.css defineix estils del footer', async () => {
   const resposta = await fetch(`${base}/styles.css`);
   assert.equal(resposta.status, 200);
