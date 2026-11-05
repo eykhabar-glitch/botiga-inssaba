@@ -1,5 +1,11 @@
 import { Router } from 'express';
 
+/**
+ * Crea el router per gestionar les ressenyes dels productes.
+ *
+ * @param {import('better-sqlite3').Database} db Connexió amb la base de dades.
+ * @returns {import('express').Router} Router d'Express per a les ressenyes.
+ */
 export function routerRessenyes(db) {
   const router = Router();
 

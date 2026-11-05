@@ -1,5 +1,11 @@
 import { Router } from 'express';
 
+/**
+ * Crea el router per gestionar les rutes dels productes.
+ *
+ * @param {object} db Connexió a la base de dades utilitzada per consultar els productes.
+ * @returns {import('express').Router} Router d'Express amb les rutes dels productes.
+ */
 export function routerProductes(db) {
   const router = Router();
 

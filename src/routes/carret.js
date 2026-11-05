@@ -1,6 +1,11 @@
 import { Router } from 'express';
 import { calcularResum } from '../utils/carret.js';
 
+/**
+ * Crea el router per gestionar les operacions del carret de compra.
+ *
+ * @returns {import('express').Router} Router d'Express amb les rutes del carret.
+ */
 export function routerCarret() {
   const router = Router();
 
