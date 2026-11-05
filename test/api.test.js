@@ -39,3 +39,27 @@ test('GET /api/productes/:id retorna 404 si no existeix', async () => {
   const resposta = await fetch(`${base}/api/productes/999`);
   assert.equal(resposta.status, 404);
 });
+
+test('GET /api/categories retorna les categories amb el nombre de productes', async () => {
+  const resposta = await fetch(`${base}/api/categories`);
+  assert.equal(resposta.status, 200);
+  assert.equal(resposta.headers.get('content-type'), 'application/json; charset=utf-8');
+
+  const categories = await resposta.json();
+  assert.deepEqual(categories, [
+    { categoria: 'casa', numProductes: 2 },
+    { categoria: 'papereria', numProductes: 2 },
+    { categoria: 'roba', numProductes: 2 },
+  ]);
+});
+
+test('GET /api/categories retorna una llista JSON', async () => {
+  const resposta = await fetch(`${base}/api/categories`);
+  const categories = await resposta.json();
+
+  assert.ok(Array.isArray(categories));
+  assert.ok(categories.every((categoria) => (
+    typeof categoria.categoria === 'string'
+    && Number.isInteger(categoria.numProductes)
+  )));
+});
